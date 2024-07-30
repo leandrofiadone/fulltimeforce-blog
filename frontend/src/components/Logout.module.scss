@@ -1,0 +1,18 @@
+$primary-color: #4caf50;
+$button-background-color: #f44336; // Red color for logout
+
+.logoutButton {
+    background-color: $button-background-color;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: darkred; // Darker red for hover effect
+    }
+}

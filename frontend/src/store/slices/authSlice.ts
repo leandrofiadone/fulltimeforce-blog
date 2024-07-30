@@ -24,14 +24,15 @@ export const checkAuthStatus = createAsyncThunk(
   }
 )
 
+// Asynchronous thunk action for logging out
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
+  await axios.get("http://localhost:8080/auth/logout", {withCredentials: true})
+})
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout(state) {
-      state.isAuthenticated = false
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(checkAuthStatus.pending, (state) => {
@@ -48,9 +49,10 @@ const authSlice = createSlice({
           action.error.message || "Failed to check authentication status"
         state.isAuthenticated = false
       })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.isAuthenticated = false
+      })
   }
 })
-
-export const {logout} = authSlice.actions
 
 export default authSlice.reducer

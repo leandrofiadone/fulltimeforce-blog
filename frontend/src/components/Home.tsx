@@ -1,9 +1,10 @@
-import React, {useEffect} from "react"
+import React from "react"
 import {useSelector, useDispatch} from "react-redux"
 import {useHistory} from "react-router-dom"
 import styles from "./Home.module.scss"
 import {RootState} from "../store"
 import {fetchStories} from "../store/slices/storiesSlice"
+import Logout from "../components/Logout"
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
@@ -12,7 +13,7 @@ const Home: React.FC = () => {
     (state: RootState) => state.stories
   )
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(fetchStories())
   }, [dispatch])
 
@@ -41,6 +42,7 @@ const Home: React.FC = () => {
       <button className={styles.createPostButton} onClick={handleCreatePost}>
         Create New Post
       </button>
+      <Logout /> {/* Agrega el componente Logout aquí */}
     </div>
   )
 }

@@ -49,13 +49,22 @@ router.get("/status", (req, res) => {
 
 // @desc    Logout user
 // @route   GET /auth/logout
+// @desc    Logout user
+// @route   GET /auth/logout
 router.get("/logout", (req, res, next) => {
-  req.logout((error) => {
-    if (error) {
-      return next(error)
-    }
-    res.redirect("/")
-  })
+  console.log("Logout initiated")
+      req.session.destroy((err) => {
+      if (err) {
+        console.error("Session destroy error:", err)
+        return next(err)
+      }
+      console.log("Session destroyed successfully")
+      res.clearCookie("connect.sid")
+      res.redirect("/")
+    })
 })
+
+
+
 
 module.exports = router
