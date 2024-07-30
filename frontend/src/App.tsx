@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import Login from "./components/Login"
 import Home from "./components/Home"
 import CreatePost from "./components/CreatePost"
+import StoryDetail from "./components/StoryDetail" // Importa el nuevo componente
 import {checkAuthStatus} from "./store/slices/authSlice"
 import {RootState} from "./store"
 
@@ -18,7 +19,7 @@ const App: React.FC = () => {
   }, [dispatch])
 
   if (loading) {
-    // Show a loader while checking auth status
+    // Muestra un cargador mientras se verifica el estado de autenticación
     return <div>Loading...</div>
   }
 
@@ -32,6 +33,9 @@ const App: React.FC = () => {
       </Route>
       <Route path="/create-post">
         {isAuthenticated ? <CreatePost /> : <Redirect to="/login" />}
+      </Route>
+      <Route path="/story/:id">
+        {isAuthenticated ? <StoryDetail /> : <Redirect to="/login" />}
       </Route>
       <Redirect from="/" to={isAuthenticated ? "/home" : "/login"} />
     </Switch>

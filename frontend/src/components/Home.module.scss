@@ -29,13 +29,14 @@ $font-stack: 'Arial', sans-serif;
     .card {
         background: white;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(74, 58, 58, 0.1);
         padding: 20px;
         width: 300px;
-        transition: box-shadow 0.3s ease;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
 
         &:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
         }
 
         .card-title {
@@ -49,6 +50,12 @@ $font-stack: 'Arial', sans-serif;
             font-size: 1rem;
             color: #333;
         }
+
+        // Estilo para los enlaces dentro de .card
+        a {
+            text-decoration: none !important; // Quitar subrayado
+            color: inherit !important; // Heredar el color del contenedor
+        }
     }
 
     .no-stories {
@@ -56,24 +63,21 @@ $font-stack: 'Arial', sans-serif;
         font-size: 1.2rem;
         color: #888;
     }
-}
 
-// Existing styles...
+    button.createPostButton {
+        background-color: $primary-color; // Green
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 20px; // Ajustar el espaciado según sea necesario
+        transition: background-color 0.3s ease, transform 0.3s ease;
 
-// Existing styles...
-
-button.createPostButton {
-    background-color: #4caf50; // Green
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 20px; // Adjust spacing as needed
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #45a049; // Darker green
+        &:hover {
+            background-color: darken($primary-color, 10%); // Verde más oscuro
+            transform: scale(1.05);
+        }
     }
 }

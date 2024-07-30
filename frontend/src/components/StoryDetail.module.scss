@@ -1,0 +1,30 @@
+/* StoryDetail.module.scss */
+
+.storyDetail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.storyDetail h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.storyDetail p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.storyDetail .error {
+    color: red;
+    font-weight: bold;
+}
+
+.storyDetail .loading {
+    font-style: italic;
+}
