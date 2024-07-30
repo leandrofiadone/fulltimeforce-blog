@@ -17,9 +17,12 @@ const initialState: AuthState = {
 export const checkAuthStatus = createAsyncThunk(
   "auth/checkAuthStatus",
   async () => {
-    const response = await axios.get("http://localhost:8080/auth/status", {
-      withCredentials: true
-    })
+    const response = await axios.get(
+      "https://fulltimeforce-blog.onrender.com/auth/status",
+      {
+        withCredentials: true
+      }
+    )
     return response.data
   }
 )
