@@ -5,6 +5,7 @@ import styles from "./Home.module.scss"
 import {RootState} from "../store"
 import {fetchStories} from "../store/slices/storiesSlice"
 import Logout from "../components/Logout"
+import DeleteStoryButton from './DeleteStoryButton'
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
   return (
     <div className={styles.home}>
       <h1>Hello!</h1>
+
       <div className={styles["card-container"]}>
         {stories.length > 0 ? (
           stories.map((story) => (

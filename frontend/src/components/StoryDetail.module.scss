@@ -1,5 +1,3 @@
-/* StoryDetail.module.scss */
-
 .storyDetail {
     max-width: 800px;
     margin: 0 auto;
@@ -7,24 +5,64 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.storyDetail h1 {
-    font-size: 2rem;
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.title {
+    font-size: 2.5rem;
     margin-bottom: 10px;
 }
 
-.storyDetail p {
+.content {
+    font-size: 1.2rem;
+    /* Agrandado el texto */
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.date {
     font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    /* Tamaño del texto de la fecha */
+    color: #555;
+    background-color: #e3e3e3;
+    /* Fondo para resaltar la fecha */
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-.storyDetail .error {
+.error {
     color: red;
     font-weight: bold;
 }
 
-.storyDetail .loading {
+.loading {
     font-style: italic;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
