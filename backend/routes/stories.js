@@ -85,54 +85,55 @@ router.delete("/:id", ensureAuth, async (req, res) => {
 
 // @desc    Show edit page
 // @route   GET /stories/edit/:id
-// router.get('/edit/:id', ensureAuth, async (req, res) => {
-//   try {
-//     const story = await Story.findOne({
-//       _id: req.params.id,
-//     }).lean()
+router.get('/edit/:id', ensureAuth, async (req, res) => {
+  try {
+    const story = await Story.findOne({
+      _id: req.params.id,
+    }).lean()
 
-//     if (!story) {
-//       return res.render('error/404')
-//     }
+    if (!story) {
+      return res.render('error/404')
+    }
 
-//     if (story.user != req.user.id) {
-//       res.redirect('/stories')
-//     } else {
-//       res.render('stories/edit', {
-//         story,
-//       })
-//     }
-//   } catch (err) {
-//     console.error(err)
-//     return res.render('error/500')
-//   }
-// })
+    if (story.user != req.user.id) {
+      res.redirect('/stories')
+    } else {
+      res.render('stories/edit', {
+        story,
+      })
+    }
+  } catch (err) {
+    console.error(err)
+    return res.render('error/500')
+  }
+})
+
+
 
 // @desc    Update story
 // @route   PUT /stories/:id
-// router.put('/:id', ensureAuth, async (req, res) => {
-//   try {
-//     let story = await Story.findById(req.params.id).lean()
+router.put("/stories/:id", ensureAuth, async (req, res) => {
+  try {
+    const {title, body} = req.body
+    const story = await Story.findOne({_id: req.params.id})
+    console.log('story',story)
 
-//     if (!story) {
-//       return res.render('error/404')
-//     }
+    if (!story) {
+      return res.status(404).json({message: "Story not found"})
+    }
 
-//     if (story.user != req.user.id) {
-//       res.redirect('/stories')
-//     } else {
-//       story = await Story.findOneAndUpdate({ _id: req.params.id }, req.body, {
-//         new: true,
-//         runValidators: true,
-//       })
 
-//       res.redirect('/dashboard')
-//     }
-//   } catch (err) {
-//     console.error(err)
-//     return res.render('error/500')
-//   }
-// })
+
+    story.title = title
+    story.body = body
+    await story.save()
+
+    res.json({message: "Story updated successfully"})
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({message: "Server error"})
+  }
+})
 
 
 

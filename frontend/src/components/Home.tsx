@@ -34,6 +34,11 @@ const Home: React.FC = () => {
     <div className={styles.home}>
       <h1>Hello!</h1>
 
+      <button className={styles.createPostButton} onClick={handleCreatePost}>
+        Create New Post
+      </button>
+      <Logout />
+
       <div className={styles["card-container"]}>
         {stories.length > 0 ? (
           stories.map((story) => (
@@ -54,10 +59,6 @@ const Home: React.FC = () => {
           <div className={styles["no-stories"]}>No stories available</div>
         )}
       </div>
-      <button className={styles.createPostButton} onClick={handleCreatePost}>
-        Create New Post
-      </button>
-      <Logout />
     </div>
   )
 }
