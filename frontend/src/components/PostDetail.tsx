@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react"
 import {useParams, useHistory} from "react-router-dom"
 import axios from "axios"
-import styles from "./StoryDetail.module.scss"
-import DeleteStoryButton from "./DeleteStoryButton"
+import styles from "./PostDetail.module.scss"
+import DeleteStoryButton from "./DeletePostButton"
 import {format} from "date-fns"
 
-const StoryDetail: React.FC = () => {
+const PostDetail: React.FC = () => {
   const {id} = useParams<{id: string}>()
   const [story, setStory] = useState<any>(null)
   const [loading, setLoading] = useState<boolean>(true)
@@ -40,7 +40,7 @@ const StoryDetail: React.FC = () => {
       history.push("/home")
     }
 
-  if (loading) return <div className={styles.loading}>Loading...</div>
+  if (loading) return <div className={styles.loading}></div>
   if (error) return <div className={styles.error}>Error: {error}</div>
 
   return (
@@ -69,4 +69,4 @@ const StoryDetail: React.FC = () => {
   )
 }
 
-export default StoryDetail
+export default PostDetail

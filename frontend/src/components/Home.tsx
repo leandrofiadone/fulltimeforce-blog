@@ -5,7 +5,7 @@ import styles from "./Home.module.scss"
 import {RootState} from "../store"
 import {fetchStories} from "../store/slices/storiesSlice"
 import Logout from "../components/Logout"
-import DeleteStoryButton from './DeleteStoryButton'
+import {format} from "date-fns"
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
@@ -22,7 +22,12 @@ const Home: React.FC = () => {
     history.push("/create-post")
   }
 
-  if (loading) return <div>Loading...</div>
+  if (loading)
+    return (
+      <div className={styles.loading}>
+        <div className={styles["loading-spinner"]}></div>
+      </div>
+    )
   if (error) return <div>Error: {error}</div>
 
   return (
@@ -38,6 +43,11 @@ const Home: React.FC = () => {
               className={styles.card}>
               <div className={styles["card-title"]}>{story.title}</div>
               <div className={styles["card-body"]}>{story.body}</div>
+              <div className={styles["card-date"]}>
+                {story.createdAt
+                  ? format(new Date(story.createdAt), "MMMM dd, yyyy")
+                  : "Date not available"}
+              </div>
             </Link>
           ))
         ) : (

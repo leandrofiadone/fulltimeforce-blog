@@ -1,13 +1,13 @@
 import axios from "axios"
 import React from "react"
-import styles from "./DeleteStoryButton.module.scss"
+import styles from "./DeletePostButton.module.scss"
 
-interface DeleteStoryButtonProps {
+interface DeletePostButtonProps {
   id: string
   onDeleteSuccess: () => void
 }
 
-const DeleteStoryButton: React.FC<DeleteStoryButtonProps> = ({
+const DeletePostButton: React.FC<DeletePostButtonProps> = ({
   id,
   onDeleteSuccess
 }) => {
@@ -26,9 +26,9 @@ const DeleteStoryButton: React.FC<DeleteStoryButtonProps> = ({
 
   return (
     <button className={styles.button} onClick={handleDelete}>
-      Delete Story
+      Delete Post
     </button>
   )
 }
 
-export default DeleteStoryButton
+export default DeletePostButton

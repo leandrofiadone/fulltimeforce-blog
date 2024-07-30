@@ -4,9 +4,10 @@ import {useDispatch, useSelector} from "react-redux"
 import Login from "./components/Login"
 import Home from "./components/Home"
 import CreatePost from "./components/CreatePost"
-import StoryDetail from "./components/StoryDetail" // Importa el nuevo componente
+import StoryDetail from "./components/PostDetail" // Importa el nuevo componente
 import {checkAuthStatus} from "./store/slices/authSlice"
 import {RootState} from "./store"
+import './App.css'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -19,8 +20,8 @@ const App: React.FC = () => {
   }, [dispatch])
 
   if (loading) {
-    // Muestra un cargador mientras se verifica el estado de autenticación
-    return <div>Loading...</div>
+    // Muestra el cargador mientras se verifica el estado de autenticación
+    return <div className="loader"></div>
   }
 
   return (

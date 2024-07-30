@@ -44,17 +44,28 @@ $font-stack: 'Arial', sans-serif;
             font-weight: bold;
             color: $primary-color;
             margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .card-body {
             font-size: 1rem;
             color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        // Estilo para los enlaces dentro de .card
         a {
-            text-decoration: none !important; // Quitar subrayado
-            color: inherit !important; // Heredar el color del contenedor
+            text-decoration: none !important;
+            color: inherit !important;
+        }
+
+        .card-date {
+            font-size: 0.8rem;
+            color: $primary-color;
+            margin-top: 10px;
         }
     }
 
@@ -65,19 +76,51 @@ $font-stack: 'Arial', sans-serif;
     }
 
     button.createPostButton {
-        background-color: $primary-color; // Green
+        background-color: $primary-color;
         color: white;
         border: none;
         border-radius: 5px;
         padding: 10px 20px;
         font-size: 1rem;
         cursor: pointer;
-        margin-top: 20px; // Ajustar el espaciado según sea necesario
+        margin-top: 20px;
         transition: background-color 0.3s ease, transform 0.3s ease;
 
         &:hover {
-            background-color: darken($primary-color, 10%); // Verde más oscuro
+            background-color: darken($primary-color, 10%);
             transform: scale(1.05);
         }
+    }
+}
+
+// Estilos para el loading
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.loading-spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    /* Light grey */
+    border-top: 8px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
