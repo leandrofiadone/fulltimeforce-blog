@@ -1,0 +1,97 @@
+$primary-color: #4285f4; // Google blue
+$button-hover-color: #357ae8;
+$error-color: #f44336; // Red
+$success-color: #4caf50; // Green
+$font-stack: 'Arial', sans-serif;
+
+.createPost {
+    font-family: $font-stack;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+
+    h1 {
+        color: $primary-color;
+        margin-bottom: 20px;
+    }
+
+    form {
+        width: 100%;
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        button {
+            background-color: $primary-color;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: $button-hover-color;
+            }
+        }
+    }
+
+    .success-message {
+        color: $success-color;
+        margin-top: 10px;
+    }
+
+    .error-message {
+        color: $error-color;
+        margin-top: 10px;
+    }
+}
+
+// Existing styles...
+
+button.goBackButton {
+    background-color: #f0f0f0;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+        background-color: $primary-color;
+        color: white;
+    }
+}
