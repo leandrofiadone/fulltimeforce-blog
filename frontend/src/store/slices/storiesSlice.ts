@@ -36,6 +36,27 @@ export const fetchStories = createAsyncThunk(
   }
 )
 
+// Asynchronous thunk action for deleting a story
+export const deleteStory = createAsyncThunk(
+  "stories/deleteStory",
+  async (id: string, {rejectWithValue}) => {
+    try {
+      await axios.delete(`http://localhost:8080/stories/${id}`, {
+        withCredentials: true
+      })
+      return id
+    } catch (error: unknown) {
+      // Use type assertion to handle the error
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(
+          error.response.data.message || "Failed to delete story"
+        )
+      }
+      return rejectWithValue("Failed to delete story")
+    }
+  }
+)
+
 const storiesSlice = createSlice({
   name: "stories",
   initialState,
@@ -54,7 +75,21 @@ const storiesSlice = createSlice({
         state.loading = false
         state.error = action.error.message || "Failed to fetch stories"
       })
+      .addCase(deleteStory.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(deleteStory.fulfilled, (state, action) => {
+        state.loading = false
+        // Aquí podrías hacer algo si es necesario después de eliminar,
+        // por ejemplo, re-fetch historias si se necesita la actualización.
+      })
+      .addCase(deleteStory.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload as string || "Failed to delete story"
+      })
   }
 })
 
 export default storiesSlice.reducer
+
