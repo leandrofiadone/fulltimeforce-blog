@@ -1,62 +1,38 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect} from "react"
 import {useParams, useHistory} from "react-router-dom"
-import axios from "axios"
+import {useDispatch, useSelector} from "react-redux"
+import {
+  fetchStory,
+  updateStory,
+  toggleEdit,
+  setTitle,
+  setBody,
+  clearError
+} from "../store/slices/postDetailSlice"
+import {RootState} from "../store"
 import styles from "./PostDetail.module.scss"
 import DeleteStoryButton from "./DeletePostButton"
 import {format} from "date-fns"
 
 const PostDetail: React.FC = () => {
   const {id} = useParams<{id: string}>()
-  const [story, setStory] = useState<any>(null)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
-  const [isEditing, setIsEditing] = useState<boolean>(false)
-  const [title, setTitle] = useState<string>("")
-  const [body, setBody] = useState<string>("")
+  const dispatch = useDispatch()
   const history = useHistory()
+  const {story, loading, error, isEditing, title, body} = useSelector(
+    (state: RootState) => state.postDetail
+  )
 
   useEffect(() => {
-    const fetchStory = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/stories/${id}`,
-          {
-            withCredentials: true
-          }
-        )
-        setStory(response.data.story)
-        setTitle(response.data.story.title)
-        setBody(response.data.story.body)
-      } catch (err) {
-        setError("Error fetching story")
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchStory()
-  }, [id])
+    dispatch(fetchStory(id))
+  }, [id, dispatch])
 
   const handleEditToggle = () => {
-    setIsEditing(!isEditing)
+    dispatch(toggleEdit())
   }
 
-
-
-  const handleSave = async () => {
-    try {
-      await axios.put(
-        `http://localhost:8080/stories/stories/${id}`,
-        {title, body},
-        {withCredentials: true}
-      )
-      setStory({...story, title, body})
-      setIsEditing(false)
-    } catch (err) {
-      setError("Error updating story")
-    }
+  const handleSave = () => {
+    dispatch(updateStory({id, title, body}))
   }
-
-
 
   const handleDeleteSuccess = () => {
     alert("Story deleted successfully")
@@ -79,7 +55,7 @@ const PostDetail: React.FC = () => {
               <input
                 type="text"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => dispatch(setTitle(e.target.value))}
                 className={styles.editTitle}
               />
             ) : (
@@ -89,7 +65,7 @@ const PostDetail: React.FC = () => {
           {isEditing ? (
             <textarea
               value={body}
-              onChange={(e) => setBody(e.target.value)}
+              onChange={(e) => dispatch(setBody(e.target.value))}
               className={styles.editBody}
             />
           ) : (

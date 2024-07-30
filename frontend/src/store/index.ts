@@ -1,11 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit"
 import storiesReducer from "./slices/storiesSlice"
 import authReducer from "./slices/authSlice"
+import postDetailReducer from "./slices/postDetailSlice"
 
 const store = configureStore({
   reducer: {
     stories: storiesReducer,
-    auth: authReducer
+    auth: authReducer,
+    postDetail: postDetailReducer
   }
 })
 
