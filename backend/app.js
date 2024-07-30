@@ -24,7 +24,10 @@ const app = express()
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // or use an array of allowed origins
+    origin: [
+      "http://localhost:3000", // Para desarrollo local
+      "https://fulltimeforce-blog.onrender.com" // Para producción
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
     credentials: true
