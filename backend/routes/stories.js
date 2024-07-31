@@ -18,7 +18,7 @@ router.post("/", ensureAuth, async (req, res) => {
 
 
 // Show single post
-router.get("/:id", ensureAuth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const story = await Story.findById(req.params.id).populate("user", "displayName").lean();
 

@@ -7,28 +7,31 @@ import {RootState} from "../store"
 import {fetchStories} from "../store/slices/storiesSlice"
 import Logout from "../components/Logout"
 
-const PAGE_SIZE = 12 // Número de posts por página
+const PAGE_SIZE = 8 // Número de posts por página
 
-const Home: React.FC = () => {
+interface HomeProps {
+  isAuthenticated: boolean
+}
+
+const Home: React.FC<HomeProps> = ({isAuthenticated}) => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const {stories, loading, error} = useSelector(
+  const {stories, loading, error, name} = useSelector(
     (state: RootState) => state.stories
   )
 
-  console.log('stories',stories)
   const [currentPage, setCurrentPage] = React.useState(1)
 
   React.useEffect(() => {
     dispatch(fetchStories())
   }, [dispatch])
 
-  const handleCreatePost = () => {
-    history.push("/create-post")
-  }
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
+  }
+
+  const handleLogin = () => {
+    history.push("/login")
   }
 
   // Ordena las historias por fecha de creación (más reciente primero)
@@ -42,8 +45,6 @@ const Home: React.FC = () => {
   const startIndex = (currentPage - 1) * PAGE_SIZE
   const endIndex = startIndex + PAGE_SIZE
   const currentPosts = sortedStories.slice(startIndex, endIndex)
-
-  
 
   if (loading) {
     return (
@@ -59,13 +60,23 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      <h1>Hello!</h1>
-
-      <button className={styles.createPostButton} onClick={handleCreatePost}>
-        Create New Post
-      </button>
-      <Logout />
-
+      <div className={styles["greeting-container"]}>
+        <h1 className={styles.greeting}>Hello, {name}!</h1>{" "}
+        {/* Muestra el nombre del usuario */}
+        {!isAuthenticated && (
+          <button className={styles.loginbutton} onClick={handleLogin}>
+            Login
+          </button>
+        )}
+      </div>
+      {isAuthenticated && (
+        <button
+          className={styles.createPostButton}
+          onClick={() => history.push("/create-post")}>
+          Create New Post
+        </button>
+      )}
+      {isAuthenticated && <Logout />}
       <div className={styles["card-container"]}>
         {currentPosts.length > 0 ? (
           currentPosts.map((story) => {
@@ -105,7 +116,6 @@ const Home: React.FC = () => {
           <div className={styles["no-stories"]}>No stories available</div>
         )}
       </div>
-
       <div className={styles.pagination}>
         {currentPage > 1 && (
           <button onClick={() => handlePageChange(currentPage - 1)}>

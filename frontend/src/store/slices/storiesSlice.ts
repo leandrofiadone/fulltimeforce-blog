@@ -22,13 +22,15 @@ interface StoriesState {
   story: Story | null // Añadir esta línea
   loading: boolean
   error: string | null
+  name: string | null // Añade esto
 }
 
 const initialState: StoriesState = {
   stories: [],
   story: null, // Añadir esta línea
   loading: false,
-  error: null
+  error: null,
+  name: null // Añade esto
 }
 
 
@@ -53,10 +55,12 @@ export const fetchStories = createAsyncThunk(
     const response = await axios.get("http://localhost:8080/api/stories", {
       withCredentials: true
     })
-
+console.log('response',response.data)
     return response.data
   }
 )
+
+
 
 // Asynchronous thunk action for deleting a story
 export const deleteStory = createAsyncThunk(
@@ -93,6 +97,7 @@ const storiesSlice = createSlice({
       .addCase(fetchStories.fulfilled, (state, action) => {
         state.loading = false
         state.stories = action.payload.stories
+        state.name = action.payload.name
       })
       .addCase(fetchStories.rejected, (state, action) => {
         state.loading = false

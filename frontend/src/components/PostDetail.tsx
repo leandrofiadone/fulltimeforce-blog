@@ -13,19 +13,20 @@ import styles from "./PostDetail.module.scss"
 import DeleteStoryButton from "./DeletePostButton"
 import {format} from "date-fns"
 
-const PostDetail: React.FC = () => {
-  // State and Dispatch
+interface PostDetailProps {
+  isAuthenticated: boolean
+}
+
+const PostDetail: React.FC<PostDetailProps> = ({isAuthenticated}) => {
   const {id} = useParams<{id: string}>()
   const dispatch = useDispatch()
   const history = useHistory()
   const {story, loading, error, isEditing, title, body} = useSelector(
     (state: RootState) => state.postDetail
   )
-  // Handlers
+
   useEffect(() => {
     dispatch(fetchStory(id))
-
-    
   }, [id, dispatch])
 
   const handleEditToggle = () => {
@@ -34,22 +35,19 @@ const PostDetail: React.FC = () => {
 
   const handleSave = () => {
     dispatch(updateStory({id, title, body}))
-   
   }
 
   const handleDeleteSuccess = () => {
     alert("Story deleted successfully")
-    history.push("/") // Redirects to the main page after deletion
+    history.push("/")
   }
 
   const handleGoBack = () => {
     history.push("/home")
   }
 
-  
-const isUpdated = story && story.createdAt !== story.updatedAt
+  const isUpdated = story && story.createdAt !== story.updatedAt
 
-  // Render Logic
   if (loading) return <div className={styles.loading}></div>
   if (error) return <div className={styles.error}>Error: {error}</div>
 
@@ -98,7 +96,7 @@ const isUpdated = story && story.createdAt !== story.updatedAt
               </p>
             )}
           </div>
-          {isEditing ? (
+          {isAuthenticated && isEditing ? (
             <div className={styles.editActions}>
               <button onClick={handleSave} className={styles.saveButton}>
                 Save
@@ -110,20 +108,24 @@ const isUpdated = story && story.createdAt !== story.updatedAt
               </button>
             </div>
           ) : (
-            <button className={styles.editButton} onClick={handleEditToggle}>
-              Edit
-            </button>
+            isAuthenticated && (
+              <button className={styles.editButton} onClick={handleEditToggle}>
+                Edit
+              </button>
+            )
           )}
           <div className={styles.footerWithDelete}>
             <button className={styles.goBackButton} onClick={handleGoBack}>
               Go Back to Home
             </button>
-            <div className={styles.deleteButtonContainer}>
-              <DeleteStoryButton
-                id={id!}
-                onDeleteSuccess={handleDeleteSuccess}
-              />
-            </div>
+            {isAuthenticated && (
+              <div className={styles.deleteButtonContainer}>
+                <DeleteStoryButton
+                  id={id!}
+                  onDeleteSuccess={handleDeleteSuccess}
+                />
+              </div>
+            )}
           </div>
         </>
       ) : (

@@ -10,7 +10,7 @@ const Logout: React.FC = () => {
 
   const handleLogout = async () => {
     await dispatch(logoutUser())
-    history.push("/login") // Redirigir a la página de inicio de sesión después de cerrar sesión
+    history.push("/") // Redirigir a la página de inicio de sesión después de cerrar sesión
   }
 
   return (
