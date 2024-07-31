@@ -6,8 +6,7 @@ import {
   updateStory,
   toggleEdit,
   setTitle,
-  setBody,
-  clearError
+  setBody
 } from "../store/slices/postDetailSlice"
 import {RootState} from "../store"
 import styles from "./PostDetail.module.scss"
@@ -62,6 +61,13 @@ const PostDetail: React.FC = () => {
               <h1 className={styles.title}>{story.title}</h1>
             )}
           </div>
+          <div
+            className={`${styles["story-author"]} ${
+              story.user ? "" : styles.retired
+            }`}>
+            {story.user?.displayName || "Retired Member"}
+          </div>
+
           {isEditing ? (
             <textarea
               value={body}

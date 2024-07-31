@@ -38,7 +38,9 @@ export const fetchStoryById = createAsyncThunk(
   async (id: string) => {
     const response = await axios.get(`http://localhost:8080/stories/${id}`, {
       withCredentials: true
+    
     })
+      console.log("response solitario", response)
     return response.data.story
   }
 )
@@ -50,7 +52,7 @@ export const fetchStories = createAsyncThunk(
     const response = await axios.get("http://localhost:8080/api/stories", {
       withCredentials: true
     })
-    console.log('response',response.data)
+
     return response.data
   }
 )

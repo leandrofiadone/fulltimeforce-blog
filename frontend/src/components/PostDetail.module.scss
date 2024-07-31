@@ -187,3 +187,24 @@ button:hover {
 }
 
 // Agrega o ajusta otros estilos según sea necesario
+
+.story-author {
+    font-size: 0.9rem;
+    /* Ajusta el tamaño de la fuente si es necesario */
+    color: #666;
+    /* Color gris oscuro para el texto normal */
+    margin-top: 10px;
+    /* Espacio arriba del nombre del autor */
+
+    /* Haciendo que "Retired Member" sea menos visible */
+    &.retired {
+        color: #aaa;
+        /* Color gris claro para "Retired Member" */
+    }
+
+    /* Aplicar estilo para una mejor visibilidad del nombre del autor */
+    &:not(.retired) {
+        font-weight: bold;
+        /* Hacer que el nombre del autor sea más destacado */
+    }
+}
