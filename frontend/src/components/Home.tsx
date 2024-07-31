@@ -7,7 +7,7 @@ import {fetchStories} from "../store/slices/storiesSlice"
 import Logout from "../components/Logout"
 import {format} from "date-fns"
 
-const PAGE_SIZE = 10 // Número de posts por página
+const PAGE_SIZE = 16 // Número de posts por página
 
 const Home: React.FC = () => {
   const dispatch = useDispatch()
@@ -60,6 +60,13 @@ const Home: React.FC = () => {
               className={styles.card}>
               <div className={styles["card-title"]}>{story.title}</div>
               <div className={styles["card-body"]}>{story.body}</div>
+              <div
+                className={`${styles["card-author"]} ${
+                  story.user ? "" : styles.retired
+                }`}>
+                {story.user?.displayName || "Retired Member"}
+              </div>
+
               <div className={styles["card-date"]}>
                 {story.createdAt
                   ? format(new Date(story.createdAt), "MMMM dd, yyyy")

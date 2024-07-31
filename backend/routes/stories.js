@@ -26,12 +26,16 @@ router.post("/", ensureAuth, async (req, res) => {
 
 // @desc    Show all stories
 // @route   GET /stories
+// @desc Show all stories
+// @route GET /stories
 router.get("/", async (req, res) => {
   try {
     const stories = await Story.find({status: "public"})
-      .populate("user")
+      .populate("user", "displayName")
       .sort({createdAt: "desc"})
       .lean()
+
+    console.log("Populated Stories:", stories) // Check if user field is populated
 
     res.json({stories})
   } catch (err) {
@@ -39,6 +43,24 @@ router.get("/", async (req, res) => {
     res.status(500).json({error: "Internal Server Error"})
   }
 })
+
+
+// @desc Show single story
+// @route GET /stories/:id
+router.get("/:id", ensureAuth, async (req, res) => {
+  try {
+    const story = await Story.findById(req.params.id).populate("user", "displayName").lean();
+
+    if (!story) {
+      return res.status(404).json({error: "Story not found"});
+    }
+    res.json({story});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: "Internal Server Error"});
+  }
+});
+
 
 
 // @desc    Show single story

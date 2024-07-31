@@ -2,12 +2,17 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios"
 
 // types/Story.ts
+export interface User {
+  _id: string
+  displayName: string
+}
+
 export interface Story {
   _id: string
   status: string
   title: string
   body: string
-  user: string
+  user: User | null
   createdAt?: string // Asegúrate de que esto esté presente
 }
 
@@ -45,7 +50,7 @@ export const fetchStories = createAsyncThunk(
     const response = await axios.get("http://localhost:8080/api/stories", {
       withCredentials: true
     })
-    console.log(response)
+    console.log('response',response.data)
     return response.data
   }
 )

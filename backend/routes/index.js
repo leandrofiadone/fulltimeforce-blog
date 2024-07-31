@@ -15,9 +15,11 @@ router.get("/", ensureGuest, (req, res) => {
 
 router.get("/api/stories", ensureAuth, async (req, res) => {
   try {
-    const stories = await Story.find({}).lean()
+    // Find stories and populate the user field
+    const stories = await Story.find({}).populate("user", "displayName").lean()
     const {firstName} = req.user // Desestructuración de req.user
 
+    console.log(stories)
     res.json({name: firstName, stories})
   } catch (err) {
     console.error(err)
