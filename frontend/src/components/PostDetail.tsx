@@ -21,8 +21,6 @@ const PostDetail: React.FC = () => {
   const {story, loading, error, isEditing, title, body} = useSelector(
     (state: RootState) => state.postDetail
   )
-
-  console.log(story)
   // Handlers
   useEffect(() => {
     dispatch(fetchStory(id))
@@ -51,7 +49,6 @@ const PostDetail: React.FC = () => {
   
 const isUpdated = story && story.createdAt !== story.updatedAt
 
-console.log(isUpdated)
   // Render Logic
   if (loading) return <div className={styles.loading}></div>
   if (error) return <div className={styles.error}>Error: {error}</div>

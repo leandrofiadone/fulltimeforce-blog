@@ -37,7 +37,7 @@ router.get("/:id", ensureAuth, async (req, res) => {
 router.delete("/:id", ensureAuth, async (req, res) => {
   try {
     const story = await Story.findById(req.params.id).lean()
-    console.log("story to delete", story)
+
     if (!story) {
       return res.status(404).json({error: "Story not found"})
     }
@@ -71,31 +71,6 @@ router.put("/stories/:id", ensureAuth, async (req, res) => {
     res.status(500).json({message: "Server error"})
   }
 })
-
-
-
-// @desc    User stories
-// @route   GET /stories/user/:userId
-// router.get('/user/:userId', ensureAuth, async (req, res) => {
-//   try {
-//     const stories = await Story.find({
-//       user: req.params.userId,
-//       status: 'public',
-//     })
-//       .populate('user')
-//       .lean()
-
-//     res.render('stories/index', {
-//       stories,
-//     })
-//   } catch (err) {
-//     console.error(err)
-//     res.render('error/500')
-//   }
-// })
-
-//@desc Search stories by title
-//@route GET /stories/search/:query
 
 
 
