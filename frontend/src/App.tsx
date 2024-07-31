@@ -26,6 +26,7 @@ const App: React.FC = () => {
 
   return (
     <Switch>
+      
       <Route path="/login">
         {isAuthenticated ? <Redirect to="/home" /> : <Login />}
       </Route>
