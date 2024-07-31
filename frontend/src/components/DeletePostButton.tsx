@@ -1,8 +1,9 @@
 import React from "react"
 import {useDispatch} from "react-redux"
- // Ajusta la ruta según sea necesario
+import Swal from "sweetalert2"
+// Adjust the path as necessary
 import styles from "./DeletePostButton.module.scss"
-import { deleteStory } from '../store/slices/storiesSlice'
+import {deleteStory} from "../store/slices/storiesSlice"
 
 interface DeletePostButtonProps {
   id: string
@@ -16,12 +17,26 @@ const DeletePostButton: React.FC<DeletePostButtonProps> = ({
   const dispatch = useDispatch()
 
   const handleDelete = async () => {
-    try {
-      await dispatch(deleteStory(id))
-      onDeleteSuccess()
-    } catch (err) {
-      alert("Failed to delete story")
-      console.error(err)
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel"
+    })
+
+    if (result.isConfirmed) {
+      try {
+        await dispatch(deleteStory(id))
+        onDeleteSuccess()
+        Swal.fire("Deleted!", "The post has been deleted.", "success")
+      } catch (err) {
+        Swal.fire("Error!", "Failed to delete the post.", "error")
+        console.error(err)
+      }
     }
   }
 

@@ -12,6 +12,7 @@ import {RootState} from "../store"
 import styles from "./PostDetail.module.scss"
 import DeleteStoryButton from "./DeletePostButton"
 import {format} from "date-fns"
+import Swal from "sweetalert2"
 
 interface PostDetailProps {
   isAuthenticated: boolean
@@ -35,11 +36,23 @@ const PostDetail: React.FC<PostDetailProps> = ({isAuthenticated}) => {
 
   const handleSave = () => {
     dispatch(updateStory({id, title, body}))
+        Swal.fire({
+          title: "Success!",
+          text: "Post Edited successfully",
+          icon: "success",
+          confirmButtonText: "OK"
+        })
   }
 
   const handleDeleteSuccess = () => {
-    alert("Story deleted successfully")
-    history.push("/")
+    Swal.fire({
+      title: "Success!",
+      text: "Post deleted successfully",
+      icon: "success",
+      confirmButtonText: "OK"
+    }).then(() => {
+      history.push("/")
+    })
   }
 
   const handleGoBack = () => {
