@@ -80,9 +80,9 @@ const Home: React.FC<HomeProps> = ({isAuthenticated}) => {
       <div className={styles["card-container"]}>
         {currentPosts.length > 0 ? (
           currentPosts.map((story) => {
-            const createdAt = story.createdAt ? new Date(story.createdAt) : null
-            const updatedAt = story.updatedAt ? new Date(story.updatedAt) : null
-            const isUpdated = updatedAt && createdAt && updatedAt > createdAt
+            // const createdAt = story.createdAt ? new Date(story.createdAt) : null
+            // const updatedAt = story.updatedAt ? new Date(story.updatedAt) : null
+            // const isUpdated = updatedAt && createdAt && updatedAt > createdAt
 
             return (
               <Link
@@ -104,11 +104,12 @@ const Home: React.FC<HomeProps> = ({isAuthenticated}) => {
                     : "Date not available"}
                 </div>
 
-                {isUpdated && (
+                {/* Elimina esta parte para quitar el indicador de actualización */}
+                {/* {isUpdated && (
                   <div className={styles["card-updated-indicator"]}>
                     Updated
                   </div>
-                )}
+                )} */}
               </Link>
             )
           })
