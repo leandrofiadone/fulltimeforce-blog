@@ -8,6 +8,7 @@ export interface User {
 }
 
 export interface Story {
+  updatedAt: string | number | Date
   _id: string
   status: string
   title: string

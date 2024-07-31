@@ -19,6 +19,24 @@ body {
     h1 {
         color: $primary-color;
         margin-bottom: 20px;
+        font-size: 2rem; // Mejora la visibilidad
+    }
+
+    .createPostButton {
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+            transform: scale(1.05);
+        }
     }
 
     .card-container {
@@ -38,47 +56,59 @@ body {
     .card {
         background: white;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(74, 58, 58, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        width: 70vw;
+        width: 300px; // Tamaño fijo para una mejor visualización
         transition: box-shadow 0.3s ease, transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
         &:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             transform: translateY(-5px);
         }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.4rem; // Tamaño de fuente aumentado
             font-weight: bold;
             color: $primary-color;
-            margin-bottom: 10px;
-            white-space: nowrap;
+            margin-bottom: 5px;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .card-body {
             font-size: 1rem;
             color: #333;
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        a {
-            text-decoration: none !important;
-            color: inherit !important;
+        .card-author {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+
+            &.retired {
+                color: #aaa;
+            }
+
+            &:not(.retired) {
+                font-weight: bold;
+            }
         }
 
         .card-date {
-            font-size: 0.8rem;
+            font-size: 0.9rem; // Tamaño de fuente ajustado
             color: $primary-color;
-            margin-top: 10px;
         }
 
-        @media (min-width: 768px) {
-            width: 20vw;
+        .card-updated-indicator {
+            font-size: 0.8rem; // Tamaño de fuente ajustado
+            color: #d6d6a0; // Amarillo suave
         }
     }
 
@@ -86,23 +116,6 @@ body {
         text-align: center;
         font-size: 1.2rem;
         color: #888;
-    }
-
-    button.createPostButton {
-        background-color: $primary-color;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 1rem;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-
-        &:hover {
-            background-color: darken($primary-color, 10%);
-            transform: scale(1.05);
-        }
     }
 
     .pagination {
@@ -116,7 +129,7 @@ body {
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 10px 15px;
+            padding: 10px 20px;
             font-size: 1rem;
             cursor: pointer;
             margin: 0 5px;
@@ -130,23 +143,19 @@ body {
             &:disabled {
                 background-color: #ccc;
                 cursor: not-allowed;
-                transform: none;
             }
         }
 
         .previous {
-            // Estilo específico para el botón Previous
             margin-right: 10px;
         }
 
         .next {
-            // Estilo específico para el botón Next
             margin-left: 10px;
         }
     }
 }
 
-// Estilos para el loading
 .loading {
     display: flex;
     justify-content: center;
@@ -159,9 +168,7 @@ body {
 
 .loading-spinner {
     border: 8px solid rgba(0, 0, 0, 0.1);
-    /* Light grey */
     border-top: 8px solid #3498db;
-    /* Blue */
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -175,26 +182,5 @@ body {
 
     100% {
         transform: rotate(360deg);
-    }
-}
-
-.card-author {
-    font-size: 0.9rem;
-    /* Ajusta el tamaño de la fuente si es necesario */
-    color: #666;
-    /* Color gris oscuro para el texto normal */
-    margin-top: 10px;
-    /* Espacio arriba del nombre del autor */
-
-    /* Haciendo que "Retired Member" sea menos visible */
-    &.retired {
-        color: #aaa;
-        /* Color gris claro para "Retired Member" */
-    }
-
-    /* Aplicar estilo para una mejor visibilidad del nombre del autor */
-    &:not(.retired) {
-        font-weight: bold;
-        /* Hacer que el nombre del autor sea más destacado */
     }
 }

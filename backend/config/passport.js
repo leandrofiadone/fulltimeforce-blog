@@ -75,7 +75,6 @@ module.exports = function (passport) {
   })
 
   // Deserialize user from session
-  // Deserialize user from session
   passport.deserializeUser((id, done) => {
     User.findById(id)
       .exec()

@@ -14,6 +14,7 @@ import DeleteStoryButton from "./DeletePostButton"
 import {format} from "date-fns"
 
 const PostDetail: React.FC = () => {
+  // State and Dispatch
   const {id} = useParams<{id: string}>()
   const dispatch = useDispatch()
   const history = useHistory()
@@ -21,8 +22,12 @@ const PostDetail: React.FC = () => {
     (state: RootState) => state.postDetail
   )
 
+  console.log(story)
+  // Handlers
   useEffect(() => {
     dispatch(fetchStory(id))
+
+    
   }, [id, dispatch])
 
   const handleEditToggle = () => {
@@ -31,17 +36,23 @@ const PostDetail: React.FC = () => {
 
   const handleSave = () => {
     dispatch(updateStory({id, title, body}))
+   
   }
 
   const handleDeleteSuccess = () => {
     alert("Story deleted successfully")
-    history.push("/") // Redirige al usuario a la página principal después de eliminar
+    history.push("/") // Redirects to the main page after deletion
   }
 
   const handleGoBack = () => {
     history.push("/home")
   }
 
+  
+const isUpdated = story && story.createdAt !== story.updatedAt
+
+console.log(isUpdated)
+  // Render Logic
   if (loading) return <div className={styles.loading}></div>
   if (error) return <div className={styles.error}>Error: {error}</div>
 
@@ -81,6 +92,14 @@ const PostDetail: React.FC = () => {
             <p className={styles.date}>
               Created on: {format(new Date(story.createdAt), "MMMM dd, yyyy")}
             </p>
+            {isUpdated && (
+              <p className={styles.date}>
+                Updated on:{" "}
+                {story
+                  ? format(new Date(story.updatedAt), "MMMM dd, yyyy")
+                  : ""}
+              </p>
+            )}
           </div>
           {isEditing ? (
             <div className={styles.editActions}>
@@ -111,7 +130,7 @@ const PostDetail: React.FC = () => {
           </div>
         </>
       ) : (
-        <div>No story found</div>
+        <div>No Post found</div>
       )}
     </div>
   )
