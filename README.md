@@ -1,12 +1,3 @@
-# Blog-MERN with OAuth2
-
-This project is a full-stack blogging application using the MERN (MongoDB, Express.js, React, Node.js) stack with OAuth2 authentication.
-
-## Prerequisites
-
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [npm](https://www.npmjs.com/)
-- [MongoDB](https://www.mongodb.com/)
 
 ## Setup
 
