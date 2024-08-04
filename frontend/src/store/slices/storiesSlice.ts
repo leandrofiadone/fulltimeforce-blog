@@ -1,8 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios"
-
-// Define backend URL with fallback
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
+import {backendUrl} from "../../config" // Importa la URL del backend
 
 // types/Story.ts
 export interface User {
@@ -17,26 +15,26 @@ export interface Story {
   title: string
   body: string
   user: User | null
-  createdAt?: string // Ensure this is present
+  createdAt?: string // Asegúrate de que esto esté presente
 }
 
 interface StoriesState {
   stories: Story[]
-  story: Story | null // Add this line
+  story: Story | null // Agrega esta línea
   loading: boolean
   error: string | null
-  name: string | null // Add this
+  name: string | null // Agrega esto
 }
 
 const initialState: StoriesState = {
   stories: [],
-  story: null, // Add this line
+  story: null, // Agrega esta línea
   loading: false,
   error: null,
-  name: null // Add this
+  name: null // Agrega esto
 }
 
-// Asynchronous thunk action for fetching a specific story
+// Acción asincrónica para obtener una historia específica
 export const fetchStoryById = createAsyncThunk(
   "stories/fetchStoryById",
   async (id: string) => {
@@ -48,7 +46,7 @@ export const fetchStoryById = createAsyncThunk(
   }
 )
 
-// Asynchronous thunk action for fetching stories
+// Acción asincrónica para obtener historias
 export const fetchStories = createAsyncThunk(
   "stories/fetchStories",
   async () => {
@@ -60,7 +58,7 @@ export const fetchStories = createAsyncThunk(
   }
 )
 
-// Asynchronous thunk action for deleting a story
+// Acción asincrónica para eliminar una historia
 export const deleteStory = createAsyncThunk(
   "stories/deleteStory",
   async (id: string, {rejectWithValue}) => {
@@ -70,7 +68,7 @@ export const deleteStory = createAsyncThunk(
       })
       return id
     } catch (error: unknown) {
-      // Use type assertion to handle the error
+      // Usa la aserción de tipo para manejar el error
       if (axios.isAxiosError(error) && error.response) {
         return rejectWithValue(
           error.response.data.message || "Failed to delete story"

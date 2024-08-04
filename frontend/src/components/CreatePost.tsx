@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import axios from "axios"
 import {useHistory} from "react-router-dom"
+import {backendUrl} from "../config"
 import styles from "./CreatePost.module.scss"
 
 const CreatePost: React.FC = () => {
@@ -9,9 +10,6 @@ const CreatePost: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const history = useHistory()
-
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()

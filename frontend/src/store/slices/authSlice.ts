@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios"
+import {backendUrl} from "../../config"
 
 interface AuthState {
   isAuthenticated: boolean | null
@@ -13,10 +14,6 @@ const initialState: AuthState = {
   error: null
 }
 
-// Define backend URL with fallback
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
-
-// Asynchronous thunk action for checking authentication status
 export const checkAuthStatus = createAsyncThunk(
   "auth/checkAuthStatus",
   async () => {
@@ -27,7 +24,6 @@ export const checkAuthStatus = createAsyncThunk(
   }
 )
 
-// Asynchronous thunk action for logging out
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   await axios.get(`${backendUrl}/auth/logout`, {
     withCredentials: true
