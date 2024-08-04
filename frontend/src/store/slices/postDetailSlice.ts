@@ -1,7 +1,10 @@
 import {createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit"
 import axios from "axios"
 
-// Define el estado inicial
+// Define backend URL with fallback
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
+
+// Define the initial state
 interface PostDetailState {
   story: any | null
   loading: boolean
@@ -20,17 +23,14 @@ const initialState: PostDetailState = {
   body: ""
 }
 
-// Crear thunks para las operaciones asincrónicas
+// Create thunks for asynchronous operations
 export const fetchStory = createAsyncThunk(
   "postDetail/fetchStory",
   async (id: string, {rejectWithValue}) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/stories/${id}`,
-        {
-          withCredentials: true
-        }
-      )
+      const response = await axios.get(`${backendUrl}/stories/${id}`, {
+        withCredentials: true
+      })
       return response.data.story
     } catch (err) {
       return rejectWithValue("Error fetching story")
@@ -46,7 +46,7 @@ export const updateStory = createAsyncThunk(
   ) => {
     try {
       await axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/stories/${id}`,
+        `${backendUrl}/stories/${id}`,
         {title, body},
         {withCredentials: true}
       )

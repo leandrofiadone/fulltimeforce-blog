@@ -1,6 +1,9 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios"
 
+// Define backend URL with fallback
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
+
 // types/Story.ts
 export interface User {
   _id: string
@@ -14,35 +17,32 @@ export interface Story {
   title: string
   body: string
   user: User | null
-  createdAt?: string // Asegúrate de que esto esté presente
+  createdAt?: string // Ensure this is present
 }
 
 interface StoriesState {
   stories: Story[]
-  story: Story | null // Añadir esta línea
+  story: Story | null // Add this line
   loading: boolean
   error: string | null
-  name: string | null // Añade esto
+  name: string | null // Add this
 }
 
 const initialState: StoriesState = {
   stories: [],
-  story: null, // Añadir esta línea
+  story: null, // Add this line
   loading: false,
   error: null,
-  name: null // Añade esto
+  name: null // Add this
 }
 
 // Asynchronous thunk action for fetching a specific story
 export const fetchStoryById = createAsyncThunk(
   "stories/fetchStoryById",
   async (id: string) => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/stories/${id}`,
-      {
-        withCredentials: true
-      }
-    )
+    const response = await axios.get(`${backendUrl}/stories/${id}`, {
+      withCredentials: true
+    })
     console.log("response solitario", response)
     return response.data.story
   }
@@ -52,12 +52,9 @@ export const fetchStoryById = createAsyncThunk(
 export const fetchStories = createAsyncThunk(
   "stories/fetchStories",
   async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/stories`,
-      {
-        withCredentials: true
-      }
-    )
+    const response = await axios.get(`${backendUrl}/api/stories`, {
+      withCredentials: true
+    })
     console.log("response", response.data)
     return response.data
   }
@@ -68,7 +65,7 @@ export const deleteStory = createAsyncThunk(
   "stories/deleteStory",
   async (id: string, {rejectWithValue}) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/stories/${id}`, {
+      await axios.delete(`${backendUrl}/stories/${id}`, {
         withCredentials: true
       })
       return id

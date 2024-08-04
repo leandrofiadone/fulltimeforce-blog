@@ -10,12 +10,15 @@ const CreatePost: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null)
   const history = useHistory()
 
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
     try {
       await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/stories`,
+        `${backendUrl}/stories`,
         {title, body},
         {withCredentials: true}
       )
