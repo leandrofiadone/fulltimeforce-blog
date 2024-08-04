@@ -17,16 +17,21 @@ const initialState: AuthState = {
 export const checkAuthStatus = createAsyncThunk(
   "auth/checkAuthStatus",
   async () => {
-    const response = await axios.get("http://localhost:8080/auth/status", {
-      withCredentials: true
-    })
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/auth/status`,
+      {
+        withCredentials: true
+      }
+    )
     return response.data
   }
 )
 
 // Asynchronous thunk action for logging out
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
-  await axios.get("http://localhost:8080/auth/logout", {withCredentials: true})
+  await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`, {
+    withCredentials: true
+  })
 })
 
 const authSlice = createSlice({

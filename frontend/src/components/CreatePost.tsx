@@ -15,7 +15,7 @@ const CreatePost: React.FC = () => {
 
     try {
       await axios.post(
-        "http://localhost:8080/stories",
+        `${process.env.REACT_APP_BACKEND_URL}/stories`,
         {title, body},
         {withCredentials: true}
       )

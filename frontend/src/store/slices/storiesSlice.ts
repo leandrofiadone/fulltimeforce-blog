@@ -33,17 +33,17 @@ const initialState: StoriesState = {
   name: null // Añade esto
 }
 
-
-
 // Asynchronous thunk action for fetching a specific story
 export const fetchStoryById = createAsyncThunk(
   "stories/fetchStoryById",
   async (id: string) => {
-    const response = await axios.get(`http://localhost:8080/stories/${id}`, {
-      withCredentials: true
-    
-    })
-      console.log("response solitario", response)
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/stories/${id}`,
+      {
+        withCredentials: true
+      }
+    )
+    console.log("response solitario", response)
     return response.data.story
   }
 )
@@ -52,22 +52,23 @@ export const fetchStoryById = createAsyncThunk(
 export const fetchStories = createAsyncThunk(
   "stories/fetchStories",
   async () => {
-    const response = await axios.get("http://localhost:8080/api/stories", {
-      withCredentials: true
-    })
-console.log('response',response.data)
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/stories`,
+      {
+        withCredentials: true
+      }
+    )
+    console.log("response", response.data)
     return response.data
   }
 )
-
-
 
 // Asynchronous thunk action for deleting a story
 export const deleteStory = createAsyncThunk(
   "stories/deleteStory",
   async (id: string, {rejectWithValue}) => {
     try {
-      await axios.delete(`http://localhost:8080/stories/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/stories/${id}`, {
         withCredentials: true
       })
       return id
@@ -82,7 +83,6 @@ export const deleteStory = createAsyncThunk(
     }
   }
 )
-
 
 const storiesSlice = createSlice({
   name: "stories",
@@ -133,4 +133,3 @@ const storiesSlice = createSlice({
 })
 
 export default storiesSlice.reducer
-

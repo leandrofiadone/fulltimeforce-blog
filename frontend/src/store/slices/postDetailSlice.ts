@@ -25,9 +25,12 @@ export const fetchStory = createAsyncThunk(
   "postDetail/fetchStory",
   async (id: string, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`http://localhost:8080/stories/${id}`, {
-        withCredentials: true
-      })
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/stories/${id}`,
+        {
+          withCredentials: true
+        }
+      )
       return response.data.story
     } catch (err) {
       return rejectWithValue("Error fetching story")
@@ -43,7 +46,7 @@ export const updateStory = createAsyncThunk(
   ) => {
     try {
       await axios.put(
-        `http://localhost:8080/stories/stories/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/stories/${id}`,
         {title, body},
         {withCredentials: true}
       )
