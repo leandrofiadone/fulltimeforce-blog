@@ -2,6 +2,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy
 const GitHubStrategy = require("passport-github2").Strategy
 const mongoose = require("mongoose")
 const User = require("../models/User")
+require("dotenv").config()
 
 module.exports = function (passport) {
   // Google Strategy
@@ -10,7 +11,7 @@ module.exports = function (passport) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "/auth/google/callback"
+        callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`
       },
       async (accessToken, refreshToken, profile, done) => {
         const newUser = {
@@ -43,7 +44,7 @@ module.exports = function (passport) {
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "/auth/github/callback"
+        callbackURL: `${process.env.BACKEND_URL}/auth/github/callback`
       },
       async (accessToken, refreshToken, profile, done) => {
         const newUser = {
