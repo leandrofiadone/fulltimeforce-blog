@@ -27,7 +27,7 @@ app.use(
     origin: [
       "http://localhost:3000", // Para desarrollo local
       "https://fulltimeforce-blog.onrender.com",
-      "https://fulltimeforce-blog-pye6jjzej-leandrofiadones-projects.vercel.app" // Para producción
+      "https://fulltimeforce-blog-bd97ocwpm-leandrofiadones-projects.vercel.app" // Para producción
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
