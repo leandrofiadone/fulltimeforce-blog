@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import axios from "axios"
 import {useHistory} from "react-router-dom"
+import {backendUrl} from "../config"
 import styles from "./CreatePost.module.scss"
 
 const CreatePost: React.FC = () => {
@@ -15,7 +16,7 @@ const CreatePost: React.FC = () => {
 
     try {
       await axios.post(
-        "http://localhost:8080/stories",
+        `${backendUrl}/stories`,
         {title, body},
         {withCredentials: true}
       )

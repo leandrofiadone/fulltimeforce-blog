@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios"
+import {backendUrl} from "../../config" // Importa la URL del backend
 
 // types/Story.ts
 export interface User {
@@ -19,60 +20,55 @@ export interface Story {
 
 interface StoriesState {
   stories: Story[]
-  story: Story | null // Añadir esta línea
+  story: Story | null // Agrega esta línea
   loading: boolean
   error: string | null
-  name: string | null // Añade esto
+  name: string | null // Agrega esto
 }
 
 const initialState: StoriesState = {
   stories: [],
-  story: null, // Añadir esta línea
+  story: null, // Agrega esta línea
   loading: false,
   error: null,
-  name: null // Añade esto
+  name: null // Agrega esto
 }
 
-
-
-// Asynchronous thunk action for fetching a specific story
+// Acción asincrónica para obtener una historia específica
 export const fetchStoryById = createAsyncThunk(
   "stories/fetchStoryById",
   async (id: string) => {
-    const response = await axios.get(`http://localhost:8080/stories/${id}`, {
+    const response = await axios.get(`${backendUrl}/stories/${id}`, {
       withCredentials: true
-    
     })
-      console.log("response solitario", response)
+    console.log("response solitario", response)
     return response.data.story
   }
 )
 
-// Asynchronous thunk action for fetching stories
+// Acción asincrónica para obtener historias
 export const fetchStories = createAsyncThunk(
   "stories/fetchStories",
   async () => {
-    const response = await axios.get("http://localhost:8080/api/stories", {
+    const response = await axios.get(`${backendUrl}/api/stories`, {
       withCredentials: true
     })
-console.log('response',response.data)
+    console.log("response", response.data)
     return response.data
   }
 )
 
-
-
-// Asynchronous thunk action for deleting a story
+// Acción asincrónica para eliminar una historia
 export const deleteStory = createAsyncThunk(
   "stories/deleteStory",
   async (id: string, {rejectWithValue}) => {
     try {
-      await axios.delete(`http://localhost:8080/stories/${id}`, {
+      await axios.delete(`${backendUrl}/stories/${id}`, {
         withCredentials: true
       })
       return id
     } catch (error: unknown) {
-      // Use type assertion to handle the error
+      // Usa la aserción de tipo para manejar el error
       if (axios.isAxiosError(error) && error.response) {
         return rejectWithValue(
           error.response.data.message || "Failed to delete story"
@@ -82,7 +78,6 @@ export const deleteStory = createAsyncThunk(
     }
   }
 )
-
 
 const storiesSlice = createSlice({
   name: "stories",
@@ -133,4 +128,3 @@ const storiesSlice = createSlice({
 })
 
 export default storiesSlice.reducer
-

@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit"
 import axios from "axios"
+import {backendUrl} from "../../config"
 
-// Define el estado inicial
 interface PostDetailState {
   story: any | null
   loading: boolean
@@ -20,12 +20,11 @@ const initialState: PostDetailState = {
   body: ""
 }
 
-// Crear thunks para las operaciones asincrónicas
 export const fetchStory = createAsyncThunk(
   "postDetail/fetchStory",
   async (id: string, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`http://localhost:8080/stories/${id}`, {
+      const response = await axios.get(`${backendUrl}/stories/${id}`, {
         withCredentials: true
       })
       return response.data.story
@@ -43,7 +42,7 @@ export const updateStory = createAsyncThunk(
   ) => {
     try {
       await axios.put(
-        `http://localhost:8080/stories/stories/${id}`,
+        `${backendUrl}/stories/${id}`,
         {title, body},
         {withCredentials: true}
       )

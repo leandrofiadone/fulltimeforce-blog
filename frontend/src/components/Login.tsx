@@ -4,13 +4,13 @@ import styles from "./Login.module.scss"
 
 class Login extends Component {
   handleGoogleLogin = () => {
-    // Redirect to backend Google OAuth route
-    window.location.href = "http://localhost:8080/auth/google"
+    // Redirect to backend Google OAuth route using environment variable
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`
   }
 
   handleGithubLogin = () => {
-    // Redirect to backend GitHub OAuth route
-    window.location.href = "http://localhost:8080/auth/github"
+    // Redirect to backend GitHub OAuth route using environment variable
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/github`
   }
 
   render() {
