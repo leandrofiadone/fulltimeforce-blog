@@ -26,7 +26,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // Para desarrollo local
-      "https://fulltimeforce-blog.onrender.com" // Para producción
+      "https://fulltimeforce-blog.onrender.com",
+      "http://fulltimeforce-blog.onrender.com" // Para producción
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
